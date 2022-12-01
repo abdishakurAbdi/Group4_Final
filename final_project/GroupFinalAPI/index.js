@@ -8,7 +8,7 @@ const nodemon = require("nodemon");
 const mongoose = require("mongoose");
 const e = require("express");
 
-const connectionString = //connection string;
+const connectionString = "mongodb+srv://admin:admin@cluster0.lx53csr.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
