@@ -6,7 +6,6 @@ app.use(express.json());
 const nodemon = require("nodemon");
 
 const mongoose = require("mongoose");
-const e = require("express");
 
 const connectionString = "mongodb+srv://admin:admin@cluster0.lx53csr.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(connectionString, {
@@ -30,6 +29,16 @@ require("./Models/customers.js");
 const Customer = mongoose.model("Customer");
 
 app.listen(PORT, () => console.log(`server started on http://localhost:${PORT}`));
+
+app.get(`/getCustomer`, async (req, res) => {
+    try {
+        let customer = await Customer.find({}).lean()
+        return res.status(200).json({"Customers": customer});
+    }
+    catch (e){
+        return res.status(500).json({message: "Could not get all customer", reason: e.message});
+    }
+});
 
 
 app.get(`/getUsedCars`, async (req, res) => {
@@ -82,7 +91,7 @@ app.post(`/addNewCar`, async (req, res) => {
             price: req.body.price
         }
 
-        await newCar(newCar).save();
+        newCar(newCar).save();
         return res.status(200).json({message: "New car added to inventory"});
     }
     catch (e) {
@@ -102,7 +111,7 @@ app.post(`/addCustomer`, async (req, res) => {
             phonenumber: req.body.phonenumber
         }
 
-        await Customer(customer).save();
+        Customer(customer).save();
         return res.status(200).json({message: "Customer added to customer list"});
     }
     catch (e) {
