@@ -20,10 +20,10 @@ db.once("open", () => console.log("connected to database successfully"));
 
 //put code to get db schema here
 require("./Models/usedCars.js");
-const usedCar = mongoose.model("usedCar");
+const UsedCar = mongoose.model("UsedCar");
 
 require("./Models/newCars.js");
-const newCar = mongoose.model("newCar");
+const NewCar = mongoose.model("NewCar");
 
 require("./Models/customers.js");
 const Customer = mongoose.model("Customer");
@@ -43,7 +43,7 @@ app.get(`/getCustomer`, async (req, res) => {
 
 app.get(`/getUsedCars`, async (req, res) => {
     try {
-        let usedCars = await usedCar.find({}).lean()
+        let usedCars = await UsedCar.find({}).lean()
         return res.status(200).json({"usedCars": usedCars});
     }
     catch (e){
@@ -53,7 +53,7 @@ app.get(`/getUsedCars`, async (req, res) => {
 
 app.get(`/getNewCars`, async (req, res) => {
     try {
-        let newCars = await newCar.find({}).lean()
+        let newCars = await NewCar.find({}).lean()
         return res.status(200).json({"newCars": newCars});
     }
     catch (e){
@@ -71,8 +71,9 @@ app.post(`/addUsedCar`, async (req, res) => {
             price: req.body.price
         }
 
-        await usedCar(usedCar).save();
-        return res.status(200).json({message: "Used car added to inventory"});
+        UsedCar(usedCar).save().then(() => {
+            return res.status(200).json({message: "Used car added to inventory"})
+        });
     }
     catch (e) {
         if (e.name == "ValidationError") {
@@ -91,8 +92,9 @@ app.post(`/addNewCar`, async (req, res) => {
             price: req.body.price
         }
 
-        newCar(newCar).save();
-        return res.status(200).json({message: "New car added to inventory"});
+        NewCar(newCar).save().then(() => {
+            return res.status(200).json({message: "New car added to inventory"})
+        });
     }
     catch (e) {
         if (e.name == "ValidationError") {

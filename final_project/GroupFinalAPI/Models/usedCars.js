@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const usedCar = new Schema({
+const UsedCar = new Schema({
 
     year:
     {
@@ -20,14 +20,14 @@ const usedCar = new Schema({
     },
     miles:
     {
-        type: Number,
+        type: String,
         required: true
     },
     price:
     {
-        type: Number,
+        type: String,
         required: true
     },
     
 });
-mongoose.model('usedCar', usedCar);
+mongoose.model('UsedCar', UsedCar);
