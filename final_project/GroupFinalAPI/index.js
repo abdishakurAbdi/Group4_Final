@@ -161,14 +161,16 @@ app.post('/addEmployee', async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        let employee = await Employee.find({employeeID: req.body.employeeID});
+        let employee = await Employee.findOne({employeeID: req.body.employeeID});
 
-        if (employee.length == 0) {
+        if (employee == null) {
             return res.status(401).json({message: "This employee ID does not exist"});
         }
 
-        if (bcrypt.compare(req.body.password, employee[0].password)) {
-            let token = jwt.sign({employeeID: employee[0].employeeID}, symmetricKey, {expiresIn: "5m"});
+        let isPasswordValid = await bcrypt.compare(req.body.password, employee.password);
+        
+        if (isPasswordValid) {
+            let token = jwt.sign({employeeID: employee.employeeID}, symmetricKey, {expiresIn: "5m"});
             return res.status(200).json({accessToken: token});
         }
         else {
