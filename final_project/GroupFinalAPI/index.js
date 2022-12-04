@@ -143,7 +143,7 @@ app.post('/addEmployee', async (req, res) => {
 
         if (existingEmployee.length <= 0) {
             await Employee(employee).save();
-            return res.status(200).json({message: "employee added succesfully"});
+            return res.status(200).json({message: "employee added sucessfully"});
         } 
         else {
             return res.status(400).json({message: "this employee already exists"});
