@@ -133,9 +133,12 @@ app.post(`/addCustomer`, async (req, res) => {
 });
 
 app.post('/addEmployee', async (req, res) => {
+    const saltLength = 10;
+    let passwordHash = await bcrypt.hash(req.body.password, saltLength);
+    
     let employee = {
         employeeID: req.body.employeeID,
-        password: bcrypt.hashSync(req.body.password),
+        password: passwordHash,
         fname: req.body.fname,
         lname: req.body.lname
     };
@@ -168,7 +171,7 @@ app.post("/login", async (req, res) => {
         }
 
         let isPasswordValid = await bcrypt.compare(req.body.password, employee.password);
-        
+
         if (isPasswordValid) {
             let token = jwt.sign({employeeID: employee.employeeID}, symmetricKey, {expiresIn: "5m"});
             return res.status(200).json({accessToken: token});
