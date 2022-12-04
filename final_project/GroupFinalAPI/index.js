@@ -34,6 +34,8 @@ const Customer = mongoose.model("Customer");
 require("./Models/employees");
 const Employee = mongoose.model("Employee");
 
+const symmetricKey = "SuperSecretkey";
+
 app.listen(PORT, () => console.log(`server started on http://localhost:${PORT}`));
 
 app.get(`/getCustomer`, async (req, res) => {
@@ -141,7 +143,7 @@ app.post('/addEmployee', async (req, res) => {
     try {
         let existingEmployee = await Employee.find({employeeID: req.body.employeeID});
 
-        if (existingEmployee.length <= 0) {
+        if (existingEmployee.length == 0) {
             await Employee(employee).save();
             return res.status(200).json({message: "employee added sucessfully"});
         } 
@@ -160,7 +162,18 @@ app.post('/addEmployee', async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         let employee = await Employee.find({employeeID: req.body.employeeID});
-        return res.status(200).send(employee);
+
+        if (employee.length == 0) {
+            return res.status(401).json({message: "This employee ID does not exist"});
+        }
+
+        if (bcrypt.compare(req.body.password, employee[0].password)) {
+            let token = jwt.sign({employeeID: employee[0].employeeID}, symmetricKey, {expiresIn: "5m"});
+            return res.status(200).json({accessToken: token});
+        }
+        else {
+            return res.status(401).json({message: "Incorrect password"});
+        }
     }
     catch (e) {
         return res.status(500).json({message: "there was a problem finding employee", reason: e.message});
