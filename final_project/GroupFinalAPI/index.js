@@ -7,6 +7,9 @@ const nodemon = require("nodemon");
 
 const mongoose = require("mongoose");
 
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const connectionString = "mongodb+srv://admin:admin@cluster0.lx53csr.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
@@ -27,6 +30,9 @@ const NewCar = mongoose.model("NewCar");
 
 require("./Models/customers.js");
 const Customer = mongoose.model("Customer");
+
+require("./Models/employees");
+const Employee = mongoose.model("Employee");
 
 app.listen(PORT, () => console.log(`server started on http://localhost:${PORT}`));
 
@@ -121,5 +127,42 @@ app.post(`/addCustomer`, async (req, res) => {
             return res.status(400).json({message: "Failed to add customer", reason: e.message});
         }
         return res.status(500).json({message: "Something went wrong", reason: e.message});
+    }
+});
+
+app.post('/addEmployee', async (req, res) => {
+    let employee = {
+        employeeID: req.body.employeeID,
+        password: bcrypt.hashSync(req.body.password),
+        fname: req.body.fname,
+        lname: req.body.lname
+    };
+
+    try {
+        let existingEmployee = await Employee.find({employeeID: req.body.employeeID});
+
+        if (existingEmployee.length <= 0) {
+            await Employee(employee).save();
+            return res.status(200).json({message: "employee added succesfully"});
+        } 
+        else {
+            return res.status(400).json({message: "this employee already exists"});
+        }
+    } 
+    catch (e) {
+        if (e.name == "ValidationError") {
+            return res.status(400).json({message: "failed to add employee", reason: e.message});
+        }
+        return res.status(500).json({message: "there was a problem adding employee", reason: e.message});
+    }
+});
+
+app.post("/login", async (req, res) => {
+    try {
+        let employee = await Employee.find({employeeID: req.body.employeeID});
+        return res.status(200).send(employee);
+    }
+    catch (e) {
+        return res.status(500).json({message: "there was a problem finding employee", reason: e.message});
     }
 });
