@@ -38,6 +38,17 @@ const symmetricKey = "SuperSecretkey";
 
 app.listen(PORT, () => console.log(`server started on http://localhost:${PORT}`));
 
+function verifyAccessToken(token) {
+    try {
+        let jwtToken = token.split(" ")[1];
+        jwt.verify(jwtToken, symmetricKey);
+        return true;
+    }
+    catch {
+        return false;
+    }
+}
+
 app.get(`/getCustomer`, async (req, res) => {
     try {
         let customer = await Customer.find({}).lean()
@@ -70,6 +81,10 @@ app.get(`/getNewCars`, async (req, res) => {
 });
 
 app.post(`/addUsedCar`, async (req, res) => {
+    if (!verifyAccessToken(req.headers.authorization)) {
+        return res.status(401).json({message: "Please log in"});
+    }
+
     try{
         let usedCar = {
             year: req.body.year,
@@ -92,6 +107,10 @@ app.post(`/addUsedCar`, async (req, res) => {
 });
 
 app.post(`/addNewCar`, async (req, res) => {
+    if (!verifyAccessToken(req.headers.authorization)) {
+        return res.status(401).json({message: "Please log in"});
+    }
+    
     try{
         let newCar = {
             year: req.body.year,
