@@ -38,9 +38,9 @@ const symmetricKey = "SuperSecretkey";
 
 app.listen(PORT, () => console.log(`server started on http://localhost:${PORT}`));
 
-function verifyAccessToken(token) {
+function verifyAccessToken(authHeaderData) {
     try {
-        let jwtToken = token.split(" ")[1];
+        let jwtToken = authHeaderData.split(" ")[1];
         jwt.verify(jwtToken, symmetricKey);
         return true;
     }
