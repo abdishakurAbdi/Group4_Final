@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+//this code will need to be modified to handle errors related to status codes.
 class ClientApi {
   static const String _url = "http://10.0.2.2:1200";
   final Dio _dio = Dio(BaseOptions(baseUrl: _url));
@@ -50,5 +51,25 @@ class ClientApi {
     final response = await _dio.get('/getUsedCars');
 
     return response.data['usedCars'];
+  }
+
+  Future addCustomer(
+      String fname, String lname, String email, String phoneNumber) async {
+    await _dio.post("addCustomer", data: {
+      "fname": fname,
+      "lname": lname,
+      "email": email,
+      "phonenumber": phoneNumber
+    });
+  }
+
+  Future addEmployee(
+      String employeeID, String password, String fname, String lname) async {
+    await _dio.post("addEmployee", data: {
+      "employeeID": employeeID,
+      "password": password,
+      "fname": fname,
+      "lname": lname
+    });
   }
 }
