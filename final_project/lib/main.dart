@@ -11,23 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(75),
-              child: AppBar(
-                  title: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Image.asset('images/Group4Logo.png',
-                    height: 300, width: 350),
-              )))),
+      title: "Group 4 Final",
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -45,9 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(75),
+          child: AppBar(
+              title: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child:
+                Image.asset('images/Group4Logo.png', height: 300, width: 350),
+          ))),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
