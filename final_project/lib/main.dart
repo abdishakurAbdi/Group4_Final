@@ -11,11 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(75),
+              child: AppBar(
+                  title: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Image.asset('images/Group4Logo.png',
+                    height: 300, width: 350),
+              )))),
     );
   }
 }
