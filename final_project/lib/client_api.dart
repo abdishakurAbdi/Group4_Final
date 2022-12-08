@@ -7,34 +7,54 @@ class ClientApi {
   final Dio _dio = Dio(BaseOptions(baseUrl: _url));
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  Future login(String employeeId, String password) async {
-    final response = await _dio
-        .post('/login', data: {'employeeID': employeeId, 'password': password});
+  Future<String> login(String employeeId, String password) async {
+    try {
+      final response = await _dio.post('/login',
+          data: {'employeeID': employeeId, 'password': password});
 
-    await _storage.write(
-        key: 'accessToken', value: response.data['accessToken']);
+      await _storage.write(
+          key: 'accessToken', value: response.data['accessToken']);
+    } on DioError catch (e) {
+      return e.response?.data['message'];
+    }
+
+    return "user logged in sucessfully";
   }
 
-  Future addNewCar(int year, String make, String model, String price) async {
+  Future<String> addNewCar(
+      int year, String make, String model, String price) async {
     final accessToken = await _storage.read(key: 'accessToken');
     _dio.options.headers['authorization'] = "Bearer $accessToken";
 
-    final response = await _dio.post('/addNewCar',
-        data: {'year': year, 'make': make, 'model': model, 'price': price});
+    Response response;
+    try {
+      response = await _dio.post('/addNewCar',
+          data: {'year': year, 'make': make, 'model': model, 'price': price});
+    } on DioError catch (e) {
+      return e.response?.data['message'];
+    }
+    return response.data['message'];
   }
 
-  Future addUsedCar(
+  Future<String> addUsedCar(
       int year, String make, String model, String miles, String price) async {
     final accessToken = await _storage.read(key: 'accessToken');
     _dio.options.headers['authorization'] = "Bearer $accessToken";
 
-    await _dio.post('/addUsedCar', data: {
-      'year': year,
-      'make': make,
-      'model': model,
-      'miles': miles,
-      'price': price
-    });
+    Response response;
+    try {
+      response = await _dio.post('/addUsedCar', data: {
+        'year': year,
+        'make': make,
+        'model': model,
+        'miles': miles,
+        'price': price
+      });
+    } on DioError catch (e) {
+      return e.response?.data['message'];
+    }
+
+    return response.data['message'];
   }
 
   Future logout() async {
@@ -53,23 +73,39 @@ class ClientApi {
     return response.data['usedCars'];
   }
 
-  Future addCustomer(
+  Future<String> addCustomer(
       String fname, String lname, String email, String phoneNumber) async {
-    await _dio.post("addCustomer", data: {
-      "fname": fname,
-      "lname": lname,
-      "email": email,
-      "phonenumber": phoneNumber
-    });
+    Response response;
+
+    try {
+      response = await _dio.post("addCustomer", data: {
+        "fname": fname,
+        "lname": lname,
+        "email": email,
+        "phonenumber": phoneNumber
+      });
+    } on DioError catch (e) {
+      return e.response?.data["message"];
+    }
+
+    return response.data['message'];
   }
 
-  Future addEmployee(
+  Future<String> addEmployee(
       String employeeID, String password, String fname, String lname) async {
-    await _dio.post("addEmployee", data: {
-      "employeeID": employeeID,
-      "password": password,
-      "fname": fname,
-      "lname": lname
-    });
+    Response response;
+
+    try {
+      response = await _dio.post("addEmployee", data: {
+        "employeeID": employeeID,
+        "password": password,
+        "fname": fname,
+        "lname": lname
+      });
+    } on DioError catch (e) {
+      return e.response?.data['message'];
+    }
+
+    return response.data['message'];
   }
 }
