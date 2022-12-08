@@ -92,7 +92,7 @@ flutter:
     - images/used2018SubaruOutback.jpg
     - images/used2019NissanTitan.png
     - images/used2020FordTaurus.png
-    - images/used2022FordRanger
+    - images/used2022FordRanger.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
