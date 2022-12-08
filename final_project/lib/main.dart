@@ -1,3 +1,4 @@
+import 'client_api.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,19 +18,26 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  final ClientApi api = ClientApi();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+class _MyHomePageState extends State<MyHomePage> {
+  List usedCars = [];
+
+  
+  void inItState() {
+    super.initState();
+
+    widget.api.getUsedCars().then((data) {
+      setState(() {
+        usedCars = data;
+      });
     });
   }
 
@@ -48,20 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            TextButton(onPressed: () => {
+              print(usedCars),
+            }, child: const Text("USED CARS"))
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
