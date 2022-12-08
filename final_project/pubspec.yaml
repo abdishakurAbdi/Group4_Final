@@ -64,7 +64,35 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/Group4Logo.png
-  #   - images/a_dot_ham.jpeg
+    - images/new2022FordBronco.png
+    - images/new2022FordEscape.jpg
+    - images/new2022FordExplorer.jpg
+    - images/new2022MitsubishiOutlander.jpg
+    - images/new2022Ram1500.jpg
+    - images/new2023ChevroletCorvette.jpg
+    - images/new2023ChevroletteSilverado.png
+    - images/new2023FordF150.png
+    - images/new2023HondaPilot.png
+    - images/new2023JeepGrandCherokee.png
+    - images/new2023KiaSorento.jpg
+    - images/new2023KiaTelluride.png
+    - images/new2023SubaruLegacy.png
+    - images/new2023ToyotaCamry.jpg
+    - images/used1997NissanMaxima.jpg
+    - images/used2000DodgeRam2500.jpg
+    - images/used2007ChevroletCamaro.jpg
+    - images/used2007DodgeDart.jpg
+    - images/used2007FordF150.jpg
+    - images/used2010FordExplorer.jpg
+    - images/used2010ToyotaHighlander.jpg
+    - images/used2015ChevroletSilverado.jpg
+    - images/used2015JeepGrandCherokee.jpg
+    - images/used2016HyundaiElantra.png
+    - images/used2018DodgeCharger.png
+    - images/used2018SubaruOutback.jpg
+    - images/used2019NissanTitan.png
+    - images/used2020FordTaurus.png
+    - images/used2022FordRanger
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
