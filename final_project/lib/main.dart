@@ -1,4 +1,5 @@
 import 'client_api.dart';
+import './widgets/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
   final ClientApi api = ClientApi();
 
@@ -26,12 +26,11 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
   List usedCars = [];
 
-  
-  void inItState() {
+  @override
+  void initState() {
     super.initState();
 
     widget.api.getUsedCars().then((data) {
@@ -56,9 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(onPressed: () => {
-              print(usedCars),
-            }, child: const Text("USED CARS"))
+            TextButton(
+                onPressed: () => {
+                      print(usedCars),
+                    },
+                child: const Text("USED CARS")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                child: const Text("Login"))
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.

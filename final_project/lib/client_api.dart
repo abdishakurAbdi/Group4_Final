@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-
 const String _url = "http://10.0.2.2:1200";
+
 //this code will need to be modified to handle errors related to status codes.
 class ClientApi {
-  static 
   final Dio _dio = Dio(BaseOptions(baseUrl: _url));
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
@@ -35,6 +34,7 @@ class ClientApi {
     } on DioError catch (e) {
       return e.response?.data['message'];
     }
+
     return response.data['message'];
   }
 
