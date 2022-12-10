@@ -49,19 +49,6 @@ function verifyAccessToken(authHeaderData) {
     }
 }
 
-app.get(`/getCustomer`, async (req, res) => {
-    try {
-        if (!verifyAccessToken(req.headers.authorization)) {
-            return res.status(401).json({message: "Please log in"});
-        }
-        
-        let customer = await Customer.find({}).lean()
-        return res.status(200).json({"Customers": customer});
-    }
-    catch (e){
-        return res.status(500).json({message: "Could not get all customer", reason: e.message});
-    }
-});
 
 
 app.get(`/getUsedCars`, async (req, res) => {
@@ -130,26 +117,6 @@ app.post(`/addNewCar`, async (req, res) => {
     catch (e) {
         if (e.name == "ValidationError") {
             return res.status(400).json({message: "Failed to add new car", reason: e.message});
-        }
-        return res.status(500).json({message: "Something went wrong", reason: e.message});
-    }
-});
-
-app.post(`/addCustomer`, async (req, res) => {
-    try{
-        let customer = {
-            fname: req.body.fname,
-            lname: req.body.lname,
-            email: req.body.email,
-            phonenumber: req.body.phonenumber
-        }
-
-        Customer(customer).save();
-        return res.status(200).json({message: "Customer added to customer list"});
-    }
-    catch (e) {
-        if (e.name == "ValidationError") {
-            return res.status(400).json({message: "Failed to add customer", reason: e.message});
         }
         return res.status(500).json({message: "Something went wrong", reason: e.message});
     }
