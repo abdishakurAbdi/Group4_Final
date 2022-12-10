@@ -47,13 +47,14 @@ class RootPage extends StatefulWidget {
               onPressed: () {
               debugPrint('Floating Action Button');
             },
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.home),
             ),
             bottomNavigationBar: NavigationBar(
               destinations: const [
-                NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+                NavigationDestination(icon: Icon(Icons.login), label: 'Employee Login'),
                 NavigationDestination(icon: Icon(Icons.car_rental), label: 'Inventory'),
                 NavigationDestination(icon: Icon(Icons.document_scanner), label: 'Contact Us'),
+                
               ],
               onDestinationSelected: (int index) {
                 setState(() {
