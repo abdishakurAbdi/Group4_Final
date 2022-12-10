@@ -44,6 +44,9 @@ class RootPage extends StatefulWidget {
         )
       ),
     ),
+    floatingActionButton: FloatingActionButton(onPressed: () => {
+      debugPrint('Floating Action Button')
+    },child: const Icon(Icons.home),),
     bottomNavigationBar: NavigationBar(
               destinations: const [
                 NavigationDestination(icon: Icon(Icons.login), label: 'Employee Login'),
