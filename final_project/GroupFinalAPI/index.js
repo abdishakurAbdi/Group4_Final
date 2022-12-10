@@ -51,6 +51,10 @@ function verifyAccessToken(authHeaderData) {
 
 app.get(`/getCustomer`, async (req, res) => {
     try {
+        if (!verifyAccessToken(req.headers.authorization)) {
+            return res.status(401).json({message: "Please log in"});
+        }
+        
         let customer = await Customer.find({}).lean()
         return res.status(200).json({"Customers": customer});
     }
