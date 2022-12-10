@@ -28,9 +28,6 @@ const UsedCar = mongoose.model("UsedCar");
 require("./Models/newCars.js");
 const NewCar = mongoose.model("NewCar");
 
-require("./Models/customers.js");
-const Customer = mongoose.model("Customer");
-
 require("./Models/employees");
 const Employee = mongoose.model("Employee");
 
@@ -48,8 +45,6 @@ function verifyAccessToken(authHeaderData) {
         return false;
     }
 }
-
-
 
 app.get(`/getUsedCars`, async (req, res) => {
     try {
