@@ -35,7 +35,7 @@ class _LoginpageState extends State<LoginPage> {
         if (value == "user logged in sucessfully") {
           Navigator.pop(context);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MyHomePage()));
+              context, MaterialPageRoute(builder: (context) => const RootPage()));
         } else {
           _message = value;
         }
