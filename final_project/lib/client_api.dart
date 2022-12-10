@@ -75,23 +75,6 @@ class ClientApi {
     return response.data['usedCars'];
   }
 
-  Future<String> addCustomer(
-      String fname, String lname, String email, String phoneNumber) async {
-    Response response;
-
-    try {
-      response = await _dio.post("addCustomer", data: {
-        "fname": fname,
-        "lname": lname,
-        "email": email,
-        "phonenumber": phoneNumber
-      });
-    } on DioError catch (e) {
-      return e.response?.data["message"];
-    }
-
-    return response.data['message'];
-  }
 
   Future<String> addEmployee(
       String employeeID, String password, String fname, String lname) async {
