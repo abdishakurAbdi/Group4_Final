@@ -51,7 +51,9 @@ app.get(`/getEmployees`, async (req, res) => {
         let employees = await Employee.find({}).lean()
         return res.status(200).json({"employees": employees});
     }
+
     catch (e) {
+    catch (e){
         return res.status(500).json({message: "Could not get all used cars", reason: e.message});
     }
 });
