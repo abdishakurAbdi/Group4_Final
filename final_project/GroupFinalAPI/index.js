@@ -51,6 +51,8 @@ app.get(`/getEmployees`, async (req, res) => {
         let employees = await Employee.find({}).lean()
         return res.status(200).json({"employees": employees});
     }
+
+    catch (e) {
     catch (e){
         return res.status(500).json({message: "Could not get all used cars", reason: e.message});
     }
@@ -71,7 +73,7 @@ app.get(`/getNewCars`, async (req, res) => {
         let newCars = await NewCar.find({}).lean()
         return res.status(200).json({"newCars": newCars});
     }
-    catch (e){
+    catch (e) {
         return res.status(500).json({message: "Could not get all new cars", reason: e.message});
     }
 });
@@ -81,18 +83,17 @@ app.post(`/addUsedCar`, async (req, res) => {
         return res.status(401).json({message: "Please log in"});
     }
 
-    try{
+    try {
         let usedCar = {
             year: req.body.year,
             make: req.body.make,
             model: req.body.model,
             miles: req.body.miles,
             price: req.body.price
-        }
+        };
 
-        UsedCar(usedCar).save().then(() => {
-            return res.status(200).json({message: "Used car added to inventory"})
-        });
+        await UsedCar(usedCar).save();
+        return res.status(200).json({message: "Used car added to inventory"});
     }
     catch (e) {
         if (e.name == "ValidationError") {
@@ -107,7 +108,7 @@ app.post(`/addNewCar`, async (req, res) => {
         return res.status(401).json({message: "Please log in"});
     }
     
-    try{
+    try {
         let newCar = {
             year: req.body.year,
             make: req.body.make,
@@ -115,9 +116,8 @@ app.post(`/addNewCar`, async (req, res) => {
             price: req.body.price
         }
 
-        NewCar(newCar).save().then(() => {
-            return res.status(200).json({message: "New car added to inventory"})
-        });
+        await NewCar(newCar).save();
+        return res.status(200).json({message: "New car added to inventory"})
     }
     catch (e) {
         if (e.name == "ValidationError") {
@@ -128,17 +128,17 @@ app.post(`/addNewCar`, async (req, res) => {
 });
 
 app.post('/addEmployee', async (req, res) => {
-    const saltLength = 10;
-    let passwordHash = await bcrypt.hash(req.body.password, saltLength);
-    
-    let employee = {
-        employeeID: req.body.employeeID,
-        password: passwordHash,
-        fname: req.body.fname,
-        lname: req.body.lname
-    };
-
     try {
+        const saltLength = 10;
+        let passwordHash = await bcrypt.hash(req.body.password, saltLength);
+        
+        let employee = {
+            employeeID: req.body.employeeID,
+            password: passwordHash,
+            fname: req.body.fname,
+            lname: req.body.lname
+        };
+
         let existingEmployee = await Employee.find({employeeID: req.body.employeeID});
 
         if (existingEmployee.length == 0) {
@@ -153,6 +153,10 @@ app.post('/addEmployee', async (req, res) => {
         if (e.name == "ValidationError") {
             return res.status(400).json({message: "failed to add employee", reason: e.message});
         }
+        else if (e.message == "Illegal arguments: undefined, number") {
+            return res.status(400).json({message: "password is required"});
+        }
+        
         return res.status(500).json({message: "there was a problem adding employee", reason: e.message});
     }
 });
