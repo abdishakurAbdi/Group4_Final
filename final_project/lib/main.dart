@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'client_api.dart';
- 
+import 'widgets/new_inventory.dart';
+import 'widgets/used_inventory.dart';
+import 'widgets/contact_us.dart';
+import 'widgets/app_bar.dart';
+import 'widgets/login_page.dart';
+import 'widgets/home_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -29,28 +34,29 @@ class RootPage extends StatefulWidget {
  
   class _RootPageState extends State<RootPage> {
     int currentPage = 0;
+    List<Widget> pages =  [
+      const HomePage(),
+      LoginPage(),
+      const UsedInventory(),
+      const NewInventory(),
+      const ContactUs()
+    ];
     @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("widget.title"),
-      ),
-      body: Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("images/Group4Logo.png"),
-          fit: BoxFit.cover,
-        )
-      ),
-    ),
-    floatingActionButton: FloatingActionButton(onPressed: () => {
-      debugPrint('Floating Action Button')
-    },child: const Icon(Icons.home),),
-    bottomNavigationBar: NavigationBar(
+     
+      body: pages[currentPage],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          debugPrint('Floating Action Button')
+        }, 
+        child: const Icon(Icons.home),),
+        bottomNavigationBar: NavigationBar(
+      
               destinations: const [
                 NavigationDestination(icon: Icon(Icons.login), label: 'Employee Login'),
-                NavigationDestination(icon: Icon(Icons.car_rental), label: 'Inventory'),
+                NavigationDestination(icon: Icon(Icons.car_rental_outlined), label: 'New Inventory'),
+                NavigationDestination(icon: Icon(Icons.car_rental), label: 'Used Inventory'),
                 NavigationDestination(icon: Icon(Icons.document_scanner), label: 'Contact Us'),
                 
               ],
