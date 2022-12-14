@@ -60,6 +60,11 @@ class RootPage extends StatefulWidget {
                 NavigationDestination(icon: Icon(Icons.document_scanner), label: 'Contact Us'),
                 
               ],
+              onDestinationSelected: (index) {
+                setState(() {
+                  currentPage= index;
+                });
+              }
     ));
   }
 }
