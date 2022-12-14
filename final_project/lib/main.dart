@@ -53,7 +53,6 @@ class RootPage extends StatefulWidget {
                 NavigationDestination(icon: Icon(Icons.login), label: 'Employee Login'),
                 NavigationDestination(icon: Icon(Icons.car_rental_outlined), label: 'New Inventory'),
                 NavigationDestination(icon: Icon(Icons.car_rental), label: 'Used Inventory'),
-                NavigationDestination(icon: Icon(Icons.document_scanner), label: 'Contact Us'),
                 
               ],
               onDestinationSelected: (index) {
