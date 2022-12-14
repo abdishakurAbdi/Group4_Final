@@ -6,6 +6,7 @@ import 'widgets/contact_us.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/login_page.dart';
 import 'widgets/home_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -13,13 +14,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange
-      ),
+      theme: ThemeData(primarySwatch: Colors.orange),
       home: const RootPage(),
     );
   }
@@ -28,40 +27,44 @@ class MyApp extends StatelessWidget {
 class RootPage extends StatefulWidget {
   const RootPage({Key? key}) : super(key: key);
 
-  @override 
+  @override
   State<RootPage> createState() => _RootPageState();
 }
- 
-  class _RootPageState extends State<RootPage> {
-    int currentPage = 0;
-    List<Widget> pages =  [
-      const HomePage(),
-      LoginPage(),
-      const UsedInventory(),
-      const NewInventory(),
-      const ContactUs()
-    ];
-    @override
+
+class _RootPageState extends State<RootPage> {
+  int currentPage = 0;
+  List<Widget> pages = [
+    const HomePage(),
+    LoginPage(),
+    const NewInventory(),
+    UsedInventory(),
+  ];
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-      body: pages[currentPage],
+        body: pages[currentPage],
         bottomNavigationBar: NavigationBarTheme(
           data: const NavigationBarThemeData(indicatorColor: Colors.amber),
-          child : NavigationBar(
-            selectedIndex: currentPage,   
+          child: NavigationBar(
+              selectedIndex: currentPage,
               destinations: const [
-                NavigationDestination(icon: Icon(Icons.home, color: Colors.red), label: 'Home'),
-                NavigationDestination(icon: Icon(Icons.login, color: Colors.blue), label: 'Employee Login'),
-                NavigationDestination(icon: Icon(Icons.car_rental_outlined, color: Colors.green), label: 'New Inventory'),
-                NavigationDestination(icon: Icon(Icons.car_rental, color: Colors.purple), label: 'Used Inventory'),
-                
+                NavigationDestination(
+                    icon: Icon(Icons.home, color: Colors.red), label: 'Home'),
+                NavigationDestination(
+                    icon: Icon(Icons.login, color: Colors.blue),
+                    label: 'Employee Login'),
+                NavigationDestination(
+                    icon: Icon(Icons.car_rental_outlined, color: Colors.green),
+                    label: 'New Inventory'),
+                NavigationDestination(
+                    icon: Icon(Icons.car_rental, color: Colors.purple),
+                    label: 'Used Inventory'),
               ],
               onDestinationSelected: (index) {
                 setState(() {
-                  currentPage= index;
+                  currentPage = index;
                 });
-              }
-    ),));
+              }),
+        ));
   }
 }
