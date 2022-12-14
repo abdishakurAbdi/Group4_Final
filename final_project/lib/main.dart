@@ -48,7 +48,7 @@ class RootPage extends StatefulWidget {
       body: pages[currentPage],
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
-          debugPrint('Floating Action Button')
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage() ))
         }, 
         child: const Icon(Icons.home),),
         bottomNavigationBar: NavigationBar(
@@ -68,5 +68,3 @@ class RootPage extends StatefulWidget {
     ));
   }
 }
-
-
