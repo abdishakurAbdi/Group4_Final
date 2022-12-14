@@ -46,14 +46,10 @@ class RootPage extends StatefulWidget {
     return Scaffold(
      
       body: pages[currentPage],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage() ))
-        }, 
-        child: const Icon(Icons.home),),
         bottomNavigationBar: NavigationBar(
       
               destinations: const [
+                NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
                 NavigationDestination(icon: Icon(Icons.login), label: 'Employee Login'),
                 NavigationDestination(icon: Icon(Icons.car_rental_outlined), label: 'New Inventory'),
                 NavigationDestination(icon: Icon(Icons.car_rental), label: 'Used Inventory'),
