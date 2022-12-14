@@ -46,13 +46,15 @@ class RootPage extends StatefulWidget {
     return Scaffold(
      
       body: pages[currentPage],
-        bottomNavigationBar: NavigationBar(
-      
+        bottomNavigationBar: NavigationBarTheme(
+          data: const NavigationBarThemeData(indicatorColor: Colors.amber),
+          child : NavigationBar(
+            selectedIndex: currentPage,   
               destinations: const [
-                NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-                NavigationDestination(icon: Icon(Icons.login), label: 'Employee Login'),
-                NavigationDestination(icon: Icon(Icons.car_rental_outlined), label: 'New Inventory'),
-                NavigationDestination(icon: Icon(Icons.car_rental), label: 'Used Inventory'),
+                NavigationDestination(icon: Icon(Icons.home, color: Colors.red), label: 'Home'),
+                NavigationDestination(icon: Icon(Icons.login, color: Colors.blue), label: 'Employee Login'),
+                NavigationDestination(icon: Icon(Icons.car_rental_outlined, color: Colors.green), label: 'New Inventory'),
+                NavigationDestination(icon: Icon(Icons.car_rental, color: Colors.purple), label: 'Used Inventory'),
                 
               ],
               onDestinationSelected: (index) {
@@ -60,6 +62,6 @@ class RootPage extends StatefulWidget {
                   currentPage= index;
                 });
               }
-    ));
+    ),));
   }
 }
