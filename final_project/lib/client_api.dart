@@ -75,7 +75,6 @@ class ClientApi {
     return response.data['usedCars'];
   }
 
-
   Future<String> addEmployee(
       String employeeID, String password, String fname, String lname) async {
     Response response;
@@ -92,5 +91,11 @@ class ClientApi {
     }
 
     return response.data['message'];
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    String? token = await _storage.read(key: "accessToken");
+
+    return token != null;
   }
 }
