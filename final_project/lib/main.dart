@@ -36,7 +36,7 @@ class _RootPageState extends State<RootPage> {
   List<Widget> pages = [
     const HomePage(),
     LoginPage(),
-    const NewInventory(),
+    NewInventory(),
     UsedInventory(),
   ];
   @override
