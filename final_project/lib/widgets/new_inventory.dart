@@ -39,39 +39,49 @@ class _NewInventoryState extends State<NewInventory> {
       body: Center(
           child: _dbLoaded
               ? Expanded(
+                  child: Padding(
+                  padding: const EdgeInsets.all(12.0),
                   child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    ...newCars
-                        .map<Widget>((newCars) => (TextButton(
-                            onPressed: (() => {
-                                  Navigator.pop(context),
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) => AddNewCar(
-                                                newCars['_id'],
-                                                newCars['year'],
-                                                newCars['make'],
-                                                newCars['model'],
-                                                newCars['price'],
-                                              ))))
-                                }),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                radius: 30,
-                                child: Text(newCars['year'].toString()),
-                              ),
-                              title: Text(newCars['make'] +
-                                  newCars['model'] +
-                                  newCars['price']),
-                            ))))
-                        .toList(),
-                  ],
+                    shrinkWrap: true,
+                    children: [
+                      ...newCars
+                          .map<Widget>((newCars) => (TextButton(
+                              onPressed: (() => {
+                                    Navigator.pop(context),
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) => AddNewCar(
+                                                  newCars['_id'],
+                                                  newCars['year'],
+                                                  newCars['make'],
+                                                  newCars['model'],
+                                                  newCars['price'],
+                                                ))))
+                                  }),
+                              child: ListTile(
+                                leading: (Image.asset(
+                                    'images/new2022FordBronco.png',
+                                    width: 100)),
+                                title: Text(
+                                    newCars['make'] + ' \ ' + newCars['model'],
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                                subtitle: Text(
+                                  newCars['price'],
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ))))
+                          .toList(),
+                    ],
+                  ),
                 ))
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: const <Widget>[
                     Text("Loading"),
                     CircularProgressIndicator()
                   ],

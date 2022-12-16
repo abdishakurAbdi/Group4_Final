@@ -60,12 +60,15 @@ class _UsedInventoryState extends State<UsedInventory> {
                             child: ListTile(
                               leading: CircleAvatar(
                                 radius: 30,
-                                child: Text(usedCars['year'].toString()),
+                                child: Text("images"),
                               ),
-                              title: Text(usedCars['make'] +
-                                  usedCars['model'] +
-                                  usedCars['miles'] +
-                                  usedCars['price']),
+                              title: Text(usedCars['year'].toString() +
+                                  ' \ ' +
+                                  usedCars['make'] +
+                                  ' \ ' +
+                                  usedCars['model']),
+                              subtitle: Text("Mileage: " + usedCars['miles']),
+                              trailing: Text(usedCars['price']),
                             ))))
                         .toList(),
                   ],

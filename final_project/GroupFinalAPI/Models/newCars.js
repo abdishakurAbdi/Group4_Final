@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const NewCar = new Schema({
-
+    
     year:
     {
         type: Number,

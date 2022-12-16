@@ -21,8 +21,13 @@ class _AddNewCarState extends State<AddNewCar> {
   _AddNewCarState(this._id, this.year, this.make, this.model, this.price);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Hahahahahahahahah'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Image.asset('images/Group4Logo.png', height: 300, width: 350),
+        ),
+      ),
     );
   }
 }
