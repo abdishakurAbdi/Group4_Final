@@ -29,11 +29,9 @@ class _UsedInventoryState extends State<UsedInventory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Image.asset('images/Group4Logo.png', height: 300, width: 350),
-        ),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(75),
+        child: AppBarLogo(),
       ),
       body: Center(
           child: _dbLoaded
