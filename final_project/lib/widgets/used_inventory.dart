@@ -58,17 +58,27 @@ class _UsedInventoryState extends State<UsedInventory> {
                                               ))))
                                 }),
                             child: ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 30,
                                 child: Text("images"),
                               ),
-                              title: Text(usedCars['year'].toString() +
-                                  ' \ ' +
-                                  usedCars['make'] +
-                                  ' \ ' +
-                                  usedCars['model']),
-                              subtitle: Text("Mileage: " + usedCars['miles']),
-                              trailing: Text(usedCars['price']),
+                              title: Text(
+                                  usedCars['year'].toString() +
+                                      ' \ ' +
+                                      usedCars['make'] +
+                                      ' \ ' +
+                                      usedCars['model'],
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              subtitle: Text("Mileage: " + usedCars['miles'],
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              trailing: Text(usedCars['price'],
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
                             ))))
                         .toList(),
                   ],
