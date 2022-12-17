@@ -1,4 +1,5 @@
 import 'package:final_project/Models/usedCars.dart';
+import 'package:final_project/widgets/vehicle_form.dart';
 import 'package:flutter/material.dart';
 import '../client_api.dart';
 import '../addUsedCar.dart';
@@ -14,13 +15,6 @@ class UsedInventory extends StatefulWidget {
 class _UsedInventoryState extends State<UsedInventory> {
   List usedCars = [];
   bool _dbLoaded = false;
-
-  String _id = "";
-  int year = 0;
-  String make = "";
-  String model = "";
-  String miles = "";
-  String price = "";
 
   void initState() {
     super.initState();
@@ -121,11 +115,8 @@ class _UsedInventoryState extends State<UsedInventory> {
             ? FloatingActionButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddUsedCar(
-                              _id, year, make, model, miles, price)));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => VehicleForm()));
                 },
                 child: const Icon(Icons.add),
               )
