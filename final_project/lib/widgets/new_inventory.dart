@@ -4,6 +4,7 @@ import '../addNewCar.dart';
 import '../client_api.dart';
 import '../addUsedCar.dart';
 import 'app_bar.dart';
+import 'alert.dart';
 
 class NewInventory extends StatefulWidget {
   final ClientApi api = ClientApi();
@@ -49,8 +50,8 @@ class _NewInventoryState extends State<NewInventory> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: ((context) => AddNewCar(
-                                                  newCars['_id'],
+                                            builder: ((BuildContext context) =>
+                                                Alert(
                                                   newCars['year'],
                                                   newCars['make'],
                                                   newCars['model'],
