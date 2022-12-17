@@ -1,4 +1,5 @@
 import 'package:final_project/Models/newCars.dart';
+import 'package:final_project/widgets/vehicle_form.dart';
 import 'package:flutter/material.dart';
 import '../addNewCar.dart';
 import '../client_api.dart';
@@ -16,12 +17,6 @@ class NewInventory extends StatefulWidget {
 class _NewInventoryState extends State<NewInventory> {
   List newCars = [];
   bool _dbLoaded = false;
-
-  String _id = "";
-  int year = 0;
-  String make = "";
-  String model = "";
-  String price = "";
 
   void initState() {
     super.initState();
@@ -121,10 +116,7 @@ class _NewInventoryState extends State<NewInventory> {
         onPressed: () {
           Navigator.pop(context);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      AddNewCar(_id, year, make, model, price)));
+              context, MaterialPageRoute(builder: (context) => VehicleForm()));
         },
         child: const Icon(Icons.add),
       ),

@@ -22,6 +22,8 @@ class _LoginpageState extends State<LoginPage> {
     String employeeId = _employeeIdController.text;
     String password = _passwordController.text;
 
+    FocusScope.of(context).unfocus();
+
     if (employeeId.isEmpty || password.isEmpty) {
       setState(() {
         _message = "Employee ID and Password is required";
@@ -34,8 +36,8 @@ class _LoginpageState extends State<LoginPage> {
       setState(() {
         if (value == "user logged in sucessfully") {
           Navigator.pop(context);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const RootPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const RootPage()));
         } else {
           _message = value;
         }

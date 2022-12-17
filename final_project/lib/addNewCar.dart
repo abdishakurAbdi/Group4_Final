@@ -28,6 +28,14 @@ class _AddNewCarState extends State<AddNewCar> {
           child: Image.asset('images/Group4Logo.png', height: 300, width: 350),
         ),
       ),
+      body: Center(
+        child: Column(
+          children: <Widget>[],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+      ),
     );
   }
 }

@@ -3,16 +3,16 @@ import './app_bar.dart';
 import '../client_api.dart';
 import '../main.dart';
 
-class NewVehicleForm extends StatefulWidget {
-  NewVehicleForm({super.key});
+class VehicleForm extends StatefulWidget {
+  VehicleForm({super.key});
 
   final ClientApi api = ClientApi();
 
   @override
-  State<NewVehicleForm> createState() => _NewVehicleFormState();
+  State<VehicleForm> createState() => _VehicleFormState();
 }
 
-class _NewVehicleFormState extends State<NewVehicleForm> {
+class _VehicleFormState extends State<VehicleForm> {
   final yearController = TextEditingController();
   final makeController = TextEditingController();
   final modelController = TextEditingController();
@@ -22,6 +22,7 @@ class _NewVehicleFormState extends State<NewVehicleForm> {
   String _groupValue = "New";
 
   void _addVehicle() {
+    FocusScope.of(context).unfocus();
     String make = makeController.text;
     String model = modelController.text;
     String price = priceController.text;
@@ -36,6 +37,7 @@ class _NewVehicleFormState extends State<NewVehicleForm> {
     if (_groupValue == "New") {
       widget.api.addNewCar(year, make, model, price).then((value) {
         setState(() {
+          print(value);
           if (value == "New car added to inventory") {
             _toHome();
           }
@@ -71,55 +73,59 @@ class _NewVehicleFormState extends State<NewVehicleForm> {
         preferredSize: Size.fromHeight(75),
         child: AppBarLogo(),
       ),
-      body: Center(
-          child: Column(
-        children: [
-          Row(
-            children: [
-              Radio(
-                value: "New",
-                groupValue: _groupValue,
-                onChanged: (value) => _changeSelectedRadio(value.toString()),
-              ),
-              const Text("New"),
-              Radio(
-                  value: "Used",
-                  groupValue: _groupValue,
-                  onChanged: (value) => _changeSelectedRadio(value.toString())),
-              const Text("used")
-            ],
-          ),
-          const Text("Year:"),
-          TextFormField(
-            controller: yearController,
-          ),
-          const Text("make:"),
-          TextFormField(
-            controller: makeController,
-          ),
-          const Text("model:"),
-          TextFormField(
-            controller: modelController,
-          ),
-          Visibility(
-            visible: _groupValue == "Used",
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
             child: Column(
+          children: [
+            Row(
               children: [
-                const Text("miles:"),
-                TextFormField(
-                  controller: milesController,
+                Radio(
+                  value: "New",
+                  groupValue: _groupValue,
+                  onChanged: (value) => _changeSelectedRadio(value.toString()),
                 ),
+                const Text("New"),
+                Radio(
+                    value: "Used",
+                    groupValue: _groupValue,
+                    onChanged: (value) =>
+                        _changeSelectedRadio(value.toString())),
+                const Text("used")
               ],
             ),
-          ),
-          const Text("price:"),
-          TextFormField(
-            controller: priceController,
-          ),
-          ElevatedButton(
-              onPressed: _addVehicle, child: const Text("Add Vehicle"))
-        ],
-      )),
+            const Text("Year:"),
+            TextFormField(
+              controller: yearController,
+            ),
+            const Text("make:"),
+            TextFormField(
+              controller: makeController,
+            ),
+            const Text("model:"),
+            TextFormField(
+              controller: modelController,
+            ),
+            Visibility(
+              visible: _groupValue == "Used",
+              child: Column(
+                children: [
+                  const Text("miles:"),
+                  TextFormField(
+                    controller: milesController,
+                  ),
+                ],
+              ),
+            ),
+            const Text("price:"),
+            TextFormField(
+              controller: priceController,
+            ),
+            ElevatedButton(
+                onPressed: _addVehicle, child: const Text("Add Vehicle"))
+          ],
+        )),
+      ),
     );
   }
 }
