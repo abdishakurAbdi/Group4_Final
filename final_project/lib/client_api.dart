@@ -8,6 +8,14 @@ class ClientApi {
   final Dio _dio = Dio(BaseOptions(baseUrl: _url));
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
+  bool _isLoggedIn = false;
+
+  ClientApi() {
+    _isUserLoggedIn().then((value) => _isLoggedIn = value);
+  }
+
+  bool get isLoggedIn => _isLoggedIn;
+
   Future<String> login(String employeeId, String password) async {
     try {
       final response = await _dio.post('/login',
@@ -93,7 +101,7 @@ class ClientApi {
     return response.data['message'];
   }
 
-  Future<bool> isUserLoggedIn() async {
+  Future<bool> _isUserLoggedIn() async {
     String? token = await _storage.read(key: "accessToken");
 
     return token != null;

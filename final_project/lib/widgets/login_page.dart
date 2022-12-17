@@ -71,7 +71,16 @@ class _LoginpageState extends State<LoginPage> {
           TextFormField(
             controller: _passwordController,
           ),
-          ElevatedButton(onPressed: _login, child: const Text("Login"))
+          ElevatedButton(onPressed: _login, child: const Text("Login")),
+          ElevatedButton(
+              onPressed: () => widget.api.logout().then((value) {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RootPage()));
+                  }),
+              child: Text("Logout"))
         ],
       )),
     );
