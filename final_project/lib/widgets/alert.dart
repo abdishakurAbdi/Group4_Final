@@ -17,22 +17,17 @@ class _AlertState extends State<Alert> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Thank you for your interest in one of our vehicles"),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min, //alert box centered
-        children: <Widget>[
-          Text("Test"),
-        ],
-      ),
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop(); //closes alert box
-          },
-          child: Text("Close Alert"),
+      title: const Text("WELCOME"),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text(
+                "If you are interest and want to test drive this BEAUTY we welcome you to our dealership "),
+            Text("Our Address:  1987  RICKROLL LANE, ASTLEY MN, 55245"),
+            Text("Phone No: (320) 867-5309")
+          ],
         ),
-      ],
+      ),
     );
   }
 }

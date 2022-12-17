@@ -17,6 +17,12 @@ class _NewInventoryState extends State<NewInventory> {
   List newCars = [];
   bool _dbLoaded = false;
 
+  String _id = "";
+  int year = 0;
+  String make = "";
+  String model = "";
+  String price = "";
+
   void initState() {
     super.initState();
 
@@ -45,25 +51,52 @@ class _NewInventoryState extends State<NewInventory> {
                     children: [
                       ...newCars
                           .map<Widget>((newCars) => (TextButton(
-                              onPressed: (() => {
-                                    Navigator.pop(context),
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((BuildContext context) =>
-                                                Alert(
-                                                  newCars['year'],
-                                                  newCars['make'],
-                                                  newCars['model'],
-                                                  newCars['price'],
-                                                ))))
-                                  }),
+                              onPressed: (() => showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text("WELCOME"),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: const <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Text(
+                                                    "If you are interested and want to test drive this BEAUTY we welcome you to our dealership ",
+                                                    style: const TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Text(
+                                                    "Our Address:  1987  RICKROLL LANE, ASTLEY MN, 55245",
+                                                    style: const TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Text("Phone No: (320) 867-5309",
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold))
+                                            ],
+                                          ),
+                                        ),
+                                      ))),
                               child: ListTile(
-                                leading: (Image.asset(
-                                    'images/new2022FordBronco.png',
-                                    width: 100)),
+                                leading: CircleAvatar(
+                                  radius: 30,
+                                  child: Text("NEW"),
+                                ),
                                 title: Text(
-                                    newCars['make'] + ' \ ' + newCars['model'],
+                                    newCars['year'].toString() +
+                                        ' \ ' +
+                                        newCars['make'] +
+                                        ' \ ' +
+                                        newCars['model'],
                                     style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
@@ -85,6 +118,17 @@ class _NewInventoryState extends State<NewInventory> {
                     CircularProgressIndicator()
                   ],
                 )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AddNewCar(_id, year, make, model, price)));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

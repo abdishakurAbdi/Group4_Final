@@ -15,6 +15,13 @@ class _UsedInventoryState extends State<UsedInventory> {
   List usedCars = [];
   bool _dbLoaded = false;
 
+  String _id = "";
+  int year = 0;
+  String make = "";
+  String model = "";
+  String miles = "";
+  String price = "";
+
   void initState() {
     super.initState();
 
@@ -41,29 +48,50 @@ class _UsedInventoryState extends State<UsedInventory> {
                   children: [
                     ...usedCars
                         .map<Widget>((usedCars) => (TextButton(
-                            onPressed: (() => {
-                                  Navigator.pop(context),
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) => AddUsedCar(
-                                                usedCars['_id'],
-                                                usedCars['year'],
-                                                usedCars['make'],
-                                                usedCars['model'],
-                                                usedCars['miles'],
-                                                usedCars['price'],
-                                              ))))
-                                }),
+                            onPressed: (() => showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title: const Text("WELCOME"),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  "If you are interested and want to test drive this BEAUTY we welcome you to our dealership ",
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  "Our Address:  1987  RICKROLL LANE, ASTLEY MN, 55245",
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Text("Phone No: (320) 867-5309",
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                          ],
+                                        ),
+                                      ),
+                                    ))),
                             child: ListTile(
                               leading: const CircleAvatar(
                                 radius: 30,
-                                child: Text("images"),
+                                child: Text("USED"),
                               ),
                               title: Text(
                                   usedCars['year'].toString() +
                                       ' \ ' +
                                       usedCars['make'] +
+                                      ' \ ' +
                                       ' \ ' +
                                       usedCars['model'],
                                   style: const TextStyle(
@@ -88,6 +116,17 @@ class _UsedInventoryState extends State<UsedInventory> {
                     CircularProgressIndicator()
                   ],
                 )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AddUsedCar(_id, year, make, model, miles, price)));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
