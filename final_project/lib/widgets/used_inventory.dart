@@ -56,14 +56,13 @@ class _UsedInventoryState extends State<UsedInventory> {
                                               ))))
                                 }),
                             child: ListTile(
-                              leading: const CircleAvatar(
+                              leading: CircleAvatar(
                                 radius: 30,
-                                child: Text("images"),
+                                child: Text(usedCars['make']),
                               ),
                               title: Text(
                                   usedCars['year'].toString() +
                                       ' \ ' +
-                                      usedCars['make'] +
                                       ' \ ' +
                                       usedCars['model'],
                                   style: const TextStyle(

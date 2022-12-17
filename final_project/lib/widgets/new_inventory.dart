@@ -58,7 +58,7 @@ class _NewInventoryState extends State<NewInventory> {
                                                   newCars['price'],
                                                 ))))
                                   }),
-                              child: ListTile(
+                                  child: ListTile(
                                 leading: (Image.asset(
                                     'images/new2022FordBronco.png',
                                     width: 100)),
