@@ -51,6 +51,7 @@ class _NewInventoryState extends State<NewInventory> {
                     children: [
                       ...newCars
                           .map<Widget>((newCars) => (TextButton(
+<<<<<<< HEAD
                               onPressed: (() => showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
@@ -91,6 +92,25 @@ class _NewInventoryState extends State<NewInventory> {
                                   radius: 30,
                                   child: Text("NEW"),
                                 ),
+=======
+                              onPressed: (() => {
+                                    Navigator.pop(context),
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((BuildContext context) =>
+                                                Alert(
+                                                  newCars['year'],
+                                                  newCars['make'],
+                                                  newCars['model'],
+                                                  newCars['price'],
+                                                ))))
+                                  }),
+                                  child: ListTile(
+                                leading: (Image.asset(
+                                    'images/new2022FordBronco.png',
+                                    width: 100)),
+>>>>>>> 7e1240887ae0e01cc1d3866ee6cd39a13f0a30fd
                                 title: Text(
                                     newCars['year'].toString() +
                                         ' \ ' +
