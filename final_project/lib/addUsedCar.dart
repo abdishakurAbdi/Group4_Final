@@ -22,6 +22,13 @@ class _AddUsedCarState extends State<AddUsedCar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Image.asset('images/Group4Logo.png', height: 300, width: 350),
+        ),
+      ),
+    );
   }
 }

@@ -93,7 +93,6 @@ class _NewInventoryState extends State<NewInventory> {
                                 ),
                                 title: Text(
                                     newCars['year'].toString() +
-                                        ' \ ' +
                                         newCars['make'] +
                                         ' \ ' +
                                         newCars['model'],
