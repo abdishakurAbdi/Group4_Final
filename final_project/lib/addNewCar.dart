@@ -1,24 +1,39 @@
+import 'package:final_project/main.dart';
+import 'package:final_project/widgets/new_inventory.dart';
 import 'package:flutter/material.dart';
 import 'client_api.dart';
 
 class AddNewCar extends StatefulWidget {
-  final String _id, make, model, price;
+  final String make, model, price;
   final int year;
 
   final ClientApi api = ClientApi();
 
-  AddNewCar(this._id, this.year, this.make, this.model, this.price);
-
+  AddNewCar(this.year, this.make, this.model, this.price, {super.key});
   @override
-  State<AddNewCar> createState() =>
-      _AddNewCarState(_id, year, make, model, price);
+  State<AddNewCar> createState() => _AddNewCarState(year, make, model, price);
 }
 
 class _AddNewCarState extends State<AddNewCar> {
-  final String _id, make, model, price;
+  final String make, model, price;
   final int year;
 
-  _AddNewCarState(this._id, this.year, this.make, this.model, this.price);
+  _AddNewCarState(this.year, this.make, this.model, this.price);
+
+  void _AddNewCar(year, make, model, price) {
+    setState(() {
+      widget.api.addNewCar(year, make, model, price);
+      Navigator.pop(context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => MyApp())));
+    });
+  }
+
+  final yearController = TextEditingController();
+  final makeController = TextEditingController();
+  final modelController = TextEditingController();
+  final priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +45,38 @@ class _AddNewCarState extends State<AddNewCar> {
       ),
       body: Center(
         child: Column(
-          children: <Widget>[],
+          children: <Widget>[
+            const Text("Year:"),
+            TextFormField(
+              controller: yearController,
+            ),
+            const Text("make:"),
+            TextFormField(
+              controller: makeController,
+            ),
+            const Text("model:"),
+            TextFormField(
+              controller: modelController,
+            ),
+            const Text("price:"),
+            TextFormField(
+              controller: priceController,
+            ),
+            ElevatedButton(
+                onPressed: (() {
+                  _AddNewCar(year, make, model, price);
+                }),
+                child: const Text("ADD NEW CAR"))
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        child: Icon(Icons.home),
+        onPressed: () => {
+          Navigator.pop(context),
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const MyApp()))
+        },
       ),
     );
   }

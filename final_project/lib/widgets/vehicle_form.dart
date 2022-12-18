@@ -69,63 +69,65 @@ class _VehicleFormState extends State<VehicleForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(75),
-        child: AppBarLogo(),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-            child: Column(
-          children: [
-            Row(
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(75),
+          child: AppBarLogo(),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: SingleChildScrollView(
+                child: Column(
               children: [
-                Radio(
-                  value: "New",
-                  groupValue: _groupValue,
-                  onChanged: (value) => _changeSelectedRadio(value.toString()),
+                Row(
+                  children: [
+                    Radio(
+                      value: "New",
+                      groupValue: _groupValue,
+                      onChanged: (value) =>
+                          _changeSelectedRadio(value.toString()),
+                    ),
+                    const Text("New"),
+                    Radio(
+                        value: "Used",
+                        groupValue: _groupValue,
+                        onChanged: (value) =>
+                            _changeSelectedRadio(value.toString())),
+                    const Text("used")
+                  ],
                 ),
-                const Text("New"),
-                Radio(
-                    value: "Used",
-                    groupValue: _groupValue,
-                    onChanged: (value) =>
-                        _changeSelectedRadio(value.toString())),
-                const Text("used")
-              ],
-            ),
-            const Text("Year:"),
-            TextFormField(
-              controller: yearController,
-            ),
-            const Text("make:"),
-            TextFormField(
-              controller: makeController,
-            ),
-            const Text("model:"),
-            TextFormField(
-              controller: modelController,
-            ),
-            Visibility(
-              visible: _groupValue == "Used",
-              child: Column(
-                children: [
-                  const Text("miles:"),
-                  TextFormField(
-                    controller: milesController,
+                const Text("Year:"),
+                TextFormField(
+                  controller: yearController,
+                ),
+                const Text("make:"),
+                TextFormField(
+                  controller: makeController,
+                ),
+                const Text("model:"),
+                TextFormField(
+                  controller: modelController,
+                ),
+                Visibility(
+                  visible: _groupValue == "Used",
+                  child: Column(
+                    children: [
+                      const Text("miles:"),
+                      TextFormField(
+                        controller: milesController,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const Text("price:"),
-            TextFormField(
-              controller: priceController,
-            ),
-            ElevatedButton(
-                onPressed: _addVehicle, child: const Text("Add Vehicle"))
-          ],
-        )),
-      ),
-    );
+                ),
+                const Text("price:"),
+                TextFormField(
+                  controller: priceController,
+                ),
+                ElevatedButton(
+                    onPressed: _addVehicle, child: const Text("Add Vehicle"))
+              ],
+            )),
+          ),
+        ));
   }
 }

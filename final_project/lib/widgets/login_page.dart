@@ -53,36 +53,42 @@ class _LoginpageState extends State<LoginPage> {
         child: AppBarLogo(),
       ),
       body: Center(
-          child: Column(
-        children: [
-          Visibility(
-            visible: _message.isNotEmpty,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                _message,
-                style: const TextStyle(color: Colors.red),
-              ),
-            ),
-          ),
-          const Text("Employee ID:"),
-          TextFormField(controller: _employeeIdController),
-          const Text("Password"),
-          TextFormField(
-            controller: _passwordController,
-          ),
-          ElevatedButton(onPressed: _login, child: const Text("Login")),
-          ElevatedButton(
-              onPressed: () => widget.api.logout().then((value) {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RootPage()));
-                  }),
-              child: Text("Logout"))
-        ],
-      )),
+          child: widget.api.isLoggedIn
+              ? Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () => widget.api.logout().then((value) {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const RootPage()));
+                            }),
+                        child: Text("Logout")),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Visibility(
+                      visible: _message.isNotEmpty,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          _message,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                    const Text("Employee ID:"),
+                    TextFormField(controller: _employeeIdController),
+                    const Text("Password"),
+                    TextFormField(
+                      controller: _passwordController,
+                    ),
+                    ElevatedButton(
+                        onPressed: _login, child: const Text("Login")),
+                  ],
+                )),
     );
   }
 }

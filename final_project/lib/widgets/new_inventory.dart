@@ -18,10 +18,15 @@ class _NewInventoryState extends State<NewInventory> {
   List newCars = [];
   bool _dbLoaded = false;
 
+  int year = 0;
+  String make = "";
+  String model = "";
+  String price = "";
+
   void initState() {
     super.initState();
 
-    widget.api.getUsedCars().then((data) {
+    widget.api.getNewCars().then((data) {
       setState(() {
         newCars = data;
         _dbLoaded = true;
@@ -39,8 +44,6 @@ class _NewInventoryState extends State<NewInventory> {
         body: Center(
           child: _dbLoaded
               ? Expanded(
-                  child: Padding(
-                  padding: const EdgeInsets.all(12.0),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
@@ -83,25 +86,28 @@ class _NewInventoryState extends State<NewInventory> {
                                     ),
                                   )),
                               child: ListTile(
-                                leading: CircleAvatar(
-                                  radius: 30,
-                                  child: Text("NEW"),
-                                ),
-                                title: Text(
-                                  newCars['year'].toString() +
-                                      ' \ ' +
-                                      newCars['make'] +
-                                      ' \ ' +
-                                      newCars['model'],
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ))))
+                                  leading: const CircleAvatar(
+                                    radius: 30,
+                                    child: Text("NEW"),
+                                  ),
+                                  title: Text(
+                                    newCars['year'].toString() +
+                                        ' \ ' +
+                                        newCars['make'] +
+                                        ' \ ' +
+                                        newCars['model'],
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  trailing: Text(newCars['price'],
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold))))))
                           .toList(),
                     ],
                   ),
-                ))
+                )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const <Widget>[
