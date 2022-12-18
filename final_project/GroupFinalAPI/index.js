@@ -171,7 +171,7 @@ app.post("/login", async (req, res) => {
         let isPasswordValid = await bcrypt.compare(req.body.password, employee.password);
 
         if (isPasswordValid) {
-            let token = jwt.sign({employeeID: employee.employeeID}, symmetricKey, {expiresIn: "5m"});
+            let token = jwt.sign({employeeID: employee.employeeID}, symmetricKey, {expiresIn: "20m"});
             return res.status(200).json({accessToken: token});
         }
         else {
