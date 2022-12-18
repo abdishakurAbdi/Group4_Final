@@ -55,6 +55,7 @@ class _VehicleFormState extends State<VehicleForm> {
   }
 
   void _toHome() {
+    FocusScope.of(context).unfocus();
     Navigator.pop(context);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const RootPage()));
@@ -124,7 +125,9 @@ class _VehicleFormState extends State<VehicleForm> {
                   controller: priceController,
                 ),
                 ElevatedButton(
-                    onPressed: _addVehicle, child: const Text("Add Vehicle"))
+                    onPressed: _addVehicle, child: const Text("Add Vehicle")),
+                ElevatedButton(
+                    onPressed: _toHome, child: const Text("Back to home"))
               ],
             )),
           ),
